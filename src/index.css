@@ -1,0 +1,121 @@
+/* 1. Imports MUST go first (Vite/PostCSS requirement) */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* 2. Tailwind core directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   GLOBAL BASE STYLES & OVERRIDES
+   ========================================= */
+@layer base {
+  /* HIDE UNIVERSAL SCROLLBAR FOR ALL BROWSERS */
+  html, body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari and Opera */
+  }
+
+  /* Global Body Theme */
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased overflow-x-hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-white;
+  }
+}
+
+/* =========================================
+   TACTICAL HUD UTILITIES (For Bento Grid)
+   ========================================= */
+@layer utilities {
+  .bg-grid-pattern {
+    background-image: linear-gradient(to right, rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  .animate-scanline {
+    animation: scanline 3s linear infinite;
+  }
+  
+  @keyframes scanline {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+  }
+
+  /* Cool tactical corner brackets for UI elements */
+  .hud-corners::before {
+    content: '';
+    @apply absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-500/50 rounded-tl-sm transition-all duration-300;
+  }
+  .hud-corners::after {
+    content: '';
+    @apply absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-500/50 rounded-br-sm transition-all duration-300;
+  }
+  .group:hover .hud-corners::before,
+  .group:hover .hud-corners::after {
+    @apply w-8 h-8 border-cyan-400;
+  }
+}
+
+/* ==========================================================================
+   CUSTOM RESPONSIVE ARCHITECTURE
+   ========================================================================== */
+
+/* 1. MOBILE (Base Layout) - Up to 767px */
+@media screen and (max-width: 767px) {
+  .page-container { @apply flex flex-col p-4; }
+  .ad-sidebar { @apply hidden; }
+  .ad-inline { @apply block mx-auto my-8 max-w-[300px]; }
+  .hero-intro { @apply min-h-[40vh] text-center flex flex-col justify-center; }
+  .specifications-grid { @apply grid grid-cols-1 gap-4; }
+  .category-grid { @apply grid grid-cols-1 gap-6; }
+  .vehicle-card { @apply w-full mb-6 rounded-lg bg-slate-800 shadow-md; }
+  .nav-header { @apply flex flex-col items-start gap-4; }
+}
+
+/* 2. TABLET - 768px to 1023px */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .page-container { @apply p-8 grid grid-cols-1; }
+  .ad-sidebar { @apply hidden; }
+  .ad-leaderboard { @apply block mx-auto my-8 w-[728px]; }
+  .category-grid { @apply grid grid-cols-2 gap-6; }
+  .hero-intro { @apply min-h-[50vh] flex items-center justify-between; }
+  .specifications-grid { @apply grid grid-cols-2 gap-6 p-6 bg-slate-800/50 rounded-xl; }
+  .vehicle-card { @apply flex flex-col bg-slate-800 rounded-lg shadow-lg; }
+}
+
+/* 3. DESKTOP - 1024px and above */
+@media screen and (min-width: 1024px) {
+  .page-container {
+    @apply py-12 px-[5%] grid gap-12;
+    grid-template-columns: 3fr 1fr;
+  }
+  .ad-sidebar {
+    @apply block sticky top-8 h-[600px] w-full bg-slate-800/30 rounded-xl border border-slate-700 flex items-center justify-center;
+  }
+  .ad-inline { @apply hidden; }
+  .category-grid { @apply grid grid-cols-3 gap-8; }
+  .hero-intro { @apply min-h-[70vh] flex items-center justify-between; }
+  .specifications-grid {
+    @apply grid grid-cols-4 gap-4 p-8 bg-white/5 rounded-xl;
+    border-left: 4px solid #434b4d;
+  }
+  .vehicle-card {
+    @apply bg-slate-800 rounded-xl shadow-lg border border-slate-700;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .vehicle-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+}
