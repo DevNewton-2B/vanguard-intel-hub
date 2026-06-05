@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// 1. SWAP BrowserRouter for HashRouter here!
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Global Components
 import Navbar from './components/Navbar';
@@ -13,7 +14,6 @@ import F35Lightning from './pages/Jets/F35';
 import F22Raptor from './pages/Jets/F22';
 import Su57Felon from './pages/Jets/SU57';
 import EurofighterTyphoon from './pages/Jets/Typhoon';
-import DassaultRafale from './pages/Jets/Rafale';
 import J20MightyDragon from './pages/Jets/J20';
 
 // --- Placeholder for other items pending detailed pages ---
@@ -28,6 +28,7 @@ const ItemDetail = () => (
 
 export default function App() {
   return (
+    // 2. The <Router> tag now uses HashRouter automatically
     <Router>
       <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col">
         <Navbar />
@@ -44,7 +45,6 @@ export default function App() {
             <Route path="/item/f22" element={<F22Raptor />} />
             <Route path="/item/su57" element={<Su57Felon />} />
             <Route path="/item/typhoon" element={<EurofighterTyphoon />} />
-            <Route path="/item/rafale" element={<DassaultRafale />} />
             <Route path="/item/j20" element={<J20MightyDragon />} />
             
             {/* Catch-all for items that don't have custom folders yet */}
@@ -52,7 +52,7 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* Mobile Inline Ad Placeholder (Visible only on mobile via custom CSS) */}
+        {/* Mobile Inline Ad Placeholder */}
         <div className="ad-inline bg-slate-900/50 border border-slate-800 h-[250px] flex items-center justify-center rounded-lg mt-8 mb-8 backdrop-blur-sm">
           <span className="text-slate-600 text-xs font-mono tracking-widest uppercase">Encrypted Ad Unit</span>
         </div>
