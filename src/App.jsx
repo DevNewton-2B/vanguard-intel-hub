@@ -1,15 +1,15 @@
-// 1. SWAP BrowserRouter for HashRouter here!
+// 1. Using HashRouter to ensure GitHub Pages routing works flawlessly
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Global Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-// Pages
+// Main Architecture Pages
 import Home from './pages/Home';
 import CategoryList from './pages/CategoryList';
 
-// Specific Vehicle Dossiers
+// Specific Vehicle Dossiers (The Elite Fleet)
 import F35Lightning from './pages/Jets/F35';
 import F22Raptor from './pages/Jets/F22';
 import Su57Felon from './pages/Jets/SU57';
@@ -28,15 +28,15 @@ const ItemDetail = () => (
 
 export default function App() {
   return (
-    // 2. The <Router> tag now uses HashRouter automatically
     <Router>
       <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col">
+        {/* Global Navigation Header */}
         <Navbar />
         
         {/* Main Routing Architecture */}
         <main className="flex-grow">
           <Routes>
-            {/* Core Navigation */}
+            {/* Core Navigation Paths */}
             <Route path="/" element={<Home />} />
             <Route path="/category/:type" element={<CategoryList />} />
             
@@ -51,12 +51,8 @@ export default function App() {
             <Route path="/item/:id" element={<ItemDetail />} />
           </Routes>
         </main>
-
-        {/* Mobile Inline Ad Placeholder */}
-        <div className="ad-inline bg-slate-900/50 border border-slate-800 h-[250px] flex items-center justify-center rounded-lg mt-8 mb-8 backdrop-blur-sm">
-          <span className="text-slate-600 text-xs font-mono tracking-widest uppercase">Encrypted Ad Unit</span>
-        </div>
         
+        {/* Global Navigation Footer */}
         <Footer />
         
       </div>
